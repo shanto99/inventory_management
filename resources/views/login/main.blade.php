@@ -78,7 +78,7 @@
                     Password: password,
                     remember_me: rememberMe
                 }).then(res => {
-                    location.href = '/'
+                    location.href = '/ims'
                 }).catch(err => {
                     cash('#btn-login').html('Login')
                     if (err.response.data.message != 'Wrong email or password.') {
