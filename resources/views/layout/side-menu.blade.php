@@ -6,6 +6,7 @@
 
 @section('content')
     @include('../layout/components/mobile-menu')
+    @include('../layout/components/flash-message')
     <div class="flex">
         <!-- BEGIN: Side Menu -->
         <nav class="side-nav">

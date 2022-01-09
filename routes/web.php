@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\DarkModeController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,7 @@ Route::middleware('loggedin')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/', [PageController::class, 'dashboardOverview1'])->name('dashboard-overview-1');
-    Route::get('post-page', [PageController::class, 'post'])->name('post');
+    Route::get('role', [PageController::class, 'role'])->name('role-view');
+    Route::post('role', [RoleController::class, 'role'])->name('role');
+    Route::get('menu', [PageController::class, 'menu'])->name('menu');
 });

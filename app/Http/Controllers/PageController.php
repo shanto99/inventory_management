@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Menu;
 use Illuminate\Support\Facades\Auth;
 
 use Spatie\Permission\Models\Role;
@@ -27,8 +28,19 @@ class PageController extends Controller
         ]);
     }
 
-    public function post()
+    public function role()
     {
-        return view('pages/post');
+        $roles = Role::all();
+        return view('pages/role', [
+            'roles' => $roles
+        ]);
+    }
+
+    public function menu()
+    {
+        $menus = Menu::all();
+        return view('pages/menu', [
+            'menus' => $menus
+        ]);
     }
 }
