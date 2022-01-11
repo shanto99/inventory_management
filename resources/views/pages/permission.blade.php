@@ -1,28 +1,28 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-    <title>Menu management</title>
+    <title>Permission management</title>
 @endsection
 
 @section('subcontent')
     <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
-            Add new menu
+            Add new Permission
         </h2>
     </div>
     <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
         <div class="col-span-12 lg:col-span-4">
             <div class="intro-y box p-5">
-                <form method="POST" id="menu-form" action="{{ route('menu-view') }}">
-                    <input id="menu-id" type="hidden" name="MenuId">
+                <form method="POST" id="permission-form" action="{{ route('permission') }}">
+                    <input id="permission-id" type="hidden" name="PermissionId">
                     <div>
-                        <label class="form-label">Menu name</label>
-                        <input id="menu-name" type="text"
-                        name="Name" class="form-control" placeholder="Menu name">
+                        <label class="form-label">Permission name</label>
+                        <input id="permission-name" type="text"
+                        name="Name" class="form-control" placeholder="Permission name">
                     </div>
                     @csrf
                     <div class="flex space-x-4">
-                        <button id="btn-menu-create" type="submit" class="btn btn-primary mt-5">
+                        <button id="btn-permission-create" type="submit" class="btn btn-primary mt-5">
                             Add
                         </button>
                         <button id="btn-edit-cancel" class="btn btn-warning mt-5 invisible">
@@ -37,17 +37,17 @@
                 <table class="table table-report mt-2">
                     <thead>
                         <tr>
-                            <th class="whitespace-nowrap">Menu</th>
+                            <th class="whitespace-nowrap">Permission</th>
                             <th class="text-center whitespace-nowrap">Count</th>
                             <th class="text-center whitespace-nowrap">Created at</th>
                             <th class="text-center whitespace-nowrap">ACTIONS</th>
                         </tr>
                     </thead>
-                    <tbody id="menu-table-body">
-                        @foreach ($menus as $menu)
-                            <tr class="intro-x" data-id="{{ $menu->MenuID }}">
+                    <tbody id="permission-table-body">
+                        @foreach ($permissions as $permission)
+                            <tr class="intro-x" data-id="{{ $permission->id }}">
                                 <td>
-                                    <div class="font-medium whitespace-nowrap">{{ $menu->Name }}</div>
+                                    <div class="font-medium whitespace-nowrap">{{ $permission->name }}</div>
                                 </td>
                                 <td class="text-center">86</td>
                                 <td class="w-40">
@@ -56,10 +56,10 @@
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center mr-3" 
-                                        data-id="{{ $menu->MenuID }}"
-                                        href="javascript:;" onclick="editMenu(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                                        data-id="{{ $permission->id }}"
+                                        href="#" onclick="editPermission(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
                                         <a class="flex items-center text-theme-6" 
-                                        href="#" data-id="{{ $menu->MenuID }}"
+                                        href="#" data-id="{{ $permission->id }}"
                                         onclick="confirmDelete(this)"
                                         data-toggle="modal" data-target="#delete-confirmation-modal"> 
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
@@ -75,5 +75,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('dist/js/menu.js') }}"></script>
+    <script src="{{ asset('dist/js/permission.js') }}"></script>
 @endsection

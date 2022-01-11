@@ -38,7 +38,7 @@ class Role extends Model implements RoleContract
     {
         $attributes['guard_name'] = $attributes['guard_name'] ?? Guard::getDefaultName(static::class);
 
-        $params = ['name' => $attributes['Name'], 'guard_name' => $attributes['guard_name']];
+        $params = ['name' => $attributes['name'], 'guard_name' => $attributes['guard_name']];
         if (PermissionRegistrar::$teams) {
             if (array_key_exists(PermissionRegistrar::$teamsKey, $attributes)) {
                 $params[PermissionRegistrar::$teamsKey] = $attributes[PermissionRegistrar::$teamsKey];
@@ -47,7 +47,7 @@ class Role extends Model implements RoleContract
             }
         }
         if (static::findByParam($params)) {
-            throw RoleAlreadyExists::create($attributes['Name'], $attributes['guard_name']);
+            throw RoleAlreadyExists::create($attributes['name'], $attributes['guard_name']);
         }
 
         return static::query()->create($attributes);

@@ -10,6 +10,9 @@ class Menu extends Model
     use HasFactory;
 
     protected $table = "Menus";
+    protected $primaryKey = "MenuID";
+
+    protected $guarded = [];
 
     public function parameters()
     {

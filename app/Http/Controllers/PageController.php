@@ -28,11 +28,23 @@ class PageController extends Controller
         ]);
     }
 
-    public function role()
+
+
+    public function permission()
     {
-        $roles = Role::all();
-        return view('pages/role', [
-            'roles' => $roles
+        $permissions = Permission::all();
+        return view('pages/permission', [
+            'permissions' => $permissions
+        ]);
+    }
+
+    public function editPermission($id)
+    {
+        $permissions = Permission::all();
+        $permission = Permission::find($id);
+        return view('pages/permission', [
+            'permissions' => $permissions,
+            'permission' => $permission
         ]);
     }
 
@@ -41,6 +53,36 @@ class PageController extends Controller
         $menus = Menu::all();
         return view('pages/menu', [
             'menus' => $menus
+        ]);
+    }
+
+    public function role()
+    {
+        $roles = Role::all();
+        return view('pages/role', [
+            'roles' => $roles
+        ]);
+    }
+
+    public function rolePermission()
+    {
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::all();
+
+        $roles = $roles->toArray();
+        $roles = array_map(function ($role) {
+            $permissionIds = [];
+
+            foreach ($role['permissions'] as $permission) {
+                array_push($permissionIds, $permission['id']);
+            }
+            $role['permissionIdChecked'] = $permissionIds;
+            return $role;
+        }, $roles);
+
+        return view('pages/role-permission', [
+            'roles' => $roles,
+            'permissions' => $permissions
         ]);
     }
 }
