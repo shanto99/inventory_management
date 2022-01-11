@@ -37,8 +37,8 @@ class User extends Authenticatable
     public function menus()
     {
         $allPermissions = collect([]);
-        $roles = $this->roles;
-        $permissions = $this->permissions;
+        $roles = $this->roles ?: [];
+        $permissions = $this->permissions ?: [];
 
         foreach ($roles as $role) {
             $allPermissions = $allPermissions->merge($role->permissions);
@@ -51,9 +51,9 @@ class User extends Authenticatable
         $menus = [];
 
         foreach ($allPermissions as $permission) {
-            $permissionMenus = $permission->menus;
+            $permissionMenus = $permission->menus ?: [];
             foreach ($permissionMenus as $menu) {
-                $parameters = $menu->parameters;
+                $parameters = $menu->parameters ?: [];
                 $params = [];
                 foreach ($parameters as $parameter) {
                     $params[$parameter->ParamKey] = $parameter->ParamValue;
@@ -66,7 +66,7 @@ class User extends Authenticatable
                 ];
             }
 
-            $permissionSubMenus = $permission->subMenus;
+            $permissionSubMenus = $permission->subMenus ?: [];
 
             foreach ($permissionSubMenus as $subMenu) {
                 $menu = $subMenu->menu;
@@ -77,7 +77,7 @@ class User extends Authenticatable
                         'sub_menu' => []
                     ];
                 }
-                $parameters = $subMenu->parameters;
+                $parameters = $subMenu->parameters ?: [];
                 $params = [];
                 foreach ($parameters as $parameter) {
                     $params[$parameter->ParamKey] = $parameter->ParamValue;
