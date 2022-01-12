@@ -5,7 +5,7 @@ const cancelEditBtn = document.getElementById("btn-edit-cancel");
 function generateMenuRow(menu) {
     let tableRow = document.createElement('tr');
     tableRow.setAttribute('class', 'intro-x');
-    tableRow.dataset.id = menu.MenuID;
+    tableRow.dataset.id = menu.MenuSubID;
     let titleCell = document.createElement('td');
     titleCell.innerHTML = `<div class="font-medium whitespace-nowrap">
         ${menu.Title}
@@ -16,6 +16,11 @@ function generateMenuRow(menu) {
     nameCell.classList.add('text-center');
     nameCell.innerText = menu.Name;
     tableRow.appendChild(nameCell);
+
+    let parentMenuCell = document.createElement('td');
+    parentMenuCell.classList.add('text-center');
+    parentMenuCell.innerText = menu.menu.Title;
+    tableRow.appendChild(parentMenuCell);
 
     let routeNameCell = document.createElement('td');
     routeNameCell.classList.add('text-center');
@@ -28,10 +33,10 @@ function generateMenuRow(menu) {
 
     actionCell.innerHTML = `<div class="flex justify-center items-center">
                                         <a class="flex items-center mr-3" 
-                                        data-id="${menu.MenuID}"
-                                        href="#" onclick="editMenu(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
+                                        data-id="${menu.MenuSubID}"
+                                        href="#" onclick="editSubMenu(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
                                         <a class="flex items-center text-theme-6" 
-                                        href="#" data-id="${menu.MenuID}"
+                                        href="#" data-id="${menu.MenuSubID}"
                                         onclick="confirmDelete(this)"
                                         data-toggle="modal" data-target="#delete-confirmation-modal"> 
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
@@ -46,8 +51,8 @@ cancelEditBtn.addEventListener('click', function(e) {
     e.preventDefault();
 
     menuForm.reset();
-    cash("#menu-id").val('');
-    createBtn.innerText = "Add";
+    cash("#sub-menu-id").val('');
+
 
     cancelEditBtn.classList.add('invisible');
 });
@@ -55,55 +60,56 @@ cancelEditBtn.addEventListener('click', function(e) {
 menuForm.addEventListener("submit", function(e) {
     e.preventDefault();
     const tableBody = document.getElementById("menu-table-body");
-    const menuId = cash("#menu-id").val();
+    const subMenuId = cash("#sub-menu-id").val();
     const menuName = cash("#menu-name").val();
     const menuTitle = cash("#menu-title").val();
-    const menuIcon = cash("#menu-icon").val();
     const routeName = cash("#route-name").val();
+    const parentMenu = cash("#parent-menu").val();
     const permissionId = cash("#menu-permission").val();
 
     const payload = {
         Name: menuName,
         Title: menuTitle,
-        Icon: menuIcon,
-        RouteName: routeName
+        RouteName: routeName,
+        MenuID: parentMenu,
+        PermissionID: permissionId
     };
 
-    if(menuId !== '') payload.MenuId = menuId;
-    if(permissionId !== '') payload.PermissionID = permissionId;
+    if(subMenuId !== '') payload.MenuSubID = subMenuId;
 
-    axios.post('menu', payload).then(function(res) {
+    axios.post('sub-menu', payload).then(function(res) {
         const result = res.data;
-        const menuRow = generateMenuRow(result.menu);
-        if(menuId && menuId !== '') {
-            let oldMenu = tableBody.querySelector(`tr[data-id="${menuId}"]`);
+        const menuRow = generateMenuRow(result.subMenu);
+        if(subMenuId && subMenuId !== '') {
+            let oldMenu = tableBody.querySelector(`tr[data-id="${subMenuId}"]`);
             tableBody.replaceChild(menuRow, oldMenu);
 
-            menuForm.reset();
-            cash("#menu-id").val()
-            
             createBtn.innerText = "Add";
             cancelEditBtn.classList.add('invisible');
         } else {
             tableBody.appendChild(menuRow);
         }
+
+        menuForm.reset();
+        cash("#sub-menu-id").val('');
         
         feather.replace();
     });
 });
 
-function editMenu(link)
+function editSubMenu(link)
 {
     const id = link.dataset.id;
 
-    axios.get(`menu/${id}`).then(function(res) {
+    axios.get(`sub-menu/${id}`).then(function(res) {
         const result = res.data;
-        const menu = result.menu;
-        cash('#menu-id').val(menu.MenuID);
+        const menu = result.subMenu;
+        cash("#sub-menu-id").val(id);
+        cash('#menu-id').val(menu.MenuSubID);
         cash('#menu-name').val(menu.Name);
         cash('#menu-title').val(menu.Title);
-        cash('#menu-icon').val(menu.Icon);
         cash('#route-name').val(menu.RouteName);
+        cash('#parent-menu').val(menu.MenuID);
         cash("#menu-permission").val(menu.PermissionID);
 
         createBtn.innerText = "Update";
@@ -117,21 +123,21 @@ function confirmDelete(link)
     const id = link.dataset.id;
     swal({
         title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
+        text: "Once deleted, you will not be able to recover this sub menu!",
         icon: "warning",
         buttons: true,
         dangerMode: true,
     })
     .then((willDelete) => {
     if (willDelete) {
-        axios.get(`menu/delete/${id}`).then(function(res) {
-            swal("Deleted! Menu has been deleted!", {
+        axios.get(`sub-menu/delete/${id}`).then(function(res) {
+            swal("Deleted! Sub menu has been deleted!", {
                 icon: "success",
             });
             link.closest('tr').remove();
         });
     } else {
-        swal("Your imaginary file is safe!");
+        swal("Sub menu is safe!");
     }
     });
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu;
+use App\Models\MenuSub;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 use Spatie\Permission\Models\Role;
@@ -51,8 +53,22 @@ class PageController extends Controller
     public function menu()
     {
         $menus = Menu::all();
+        $permissions = Permission::all();
         return view('pages/menu', [
-            'menus' => $menus
+            'menus' => $menus,
+            'permissions' => $permissions
+        ]);
+    }
+
+    public function subMenu()
+    {
+        $subMenus = MenuSub::with('menu')->get();
+        $menus = Menu::where('RouteName', NULL)->get();
+        $permissions = Permission::all();
+        return view('pages/sub-menu', [
+            'menus' => $menus,
+            'subMenus' => $subMenus,
+            'permissions' => $permissions
         ]);
     }
 
@@ -84,5 +100,62 @@ class PageController extends Controller
             'roles' => $roles,
             'permissions' => $permissions
         ]);
+    }
+
+    public function createUser()
+    {
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('pages/create-user', [
+            'roles' => $roles,
+            'permissions' => $permissions
+        ]);
+    }
+
+    public function getUsers($action = null)
+    {
+        $users = User::all();
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        return view('pages/users', [
+            'users' => $users,
+            'roles' => $roles,
+            'permissions' => $permissions,
+            'action' => $action
+        ]);
+    }
+
+    public function editUser($id)
+    {
+        $user = User::with('roles', 'permissions')->where('UserID', $id)->first();
+        $roles = Role::all();
+        $permissions = Permission::all();
+
+        $roleIds = [];
+        $permissionIds = [];
+
+        foreach ($user->roles as $role) {
+            array_push($roleIds, $role->id);
+        }
+
+        $user->roleIds = $roleIds;
+
+        foreach ($user->permissions as $permission) {
+            array_push($permissionIds, $permission->id);
+        }
+
+        $user->permissionIds = $permissionIds;
+
+        return view('pages/edit-user', [
+            'user' => $user,
+            'roles' => $roles,
+            'permissions' => $permissions
+        ]);
+    }
+
+    public function parentSub()
+    {
     }
 }

@@ -9,6 +9,9 @@ class MenuSub extends Model
 {
     use HasFactory;
     protected $table = "MenuSubs";
+    protected $primaryKey = "MenuSubID";
+
+    protected $guarded = [];
 
     public function menu()
     {

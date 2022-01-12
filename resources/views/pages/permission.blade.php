@@ -32,7 +32,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-span-12 lg:col-span-4">
+        <div class="col-span-12 lg:col-span-6">
             <div class="intro-y box col-span-12 overflow-auto lg:overflow-visible">
                 <table class="table table-report mt-2">
                     <thead>
