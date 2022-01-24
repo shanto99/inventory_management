@@ -10,12 +10,20 @@
     <div class="flex">
         <!-- BEGIN: Side Menu -->
         <nav class="side-nav">
-            <a href="" class="intro-x flex items-center pl-5 pt-4">
-                <img alt="Rubick Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
-                <span class="hidden xl:block text-white text-lg ml-3">
-                    Ru<span class="font-medium">bick</span>
+            <section class="flex justify-between items-end">
+                <a href="" class="intro-x flex items-center pl-5 pt-4 company-name-link">
+                    <img alt="Rubick Tailwind HTML Admin Template" class="w-6" src="{{ asset('dist/images/logo.svg') }}">
+                    <span class="hidden xl:block text-white text-lg ml-3 company-name">
+                        Ru<span class="font-medium">bick</span>
+                    </span>
+                </a>
+                <span id="sidemenu-collapse">
+                    <i data-feather="bar-chart-2" class="w-8 h-8 text-white transform -rotate-90"></i>
                 </span>
-            </a>
+                <span id="sidemenu-expand" class="hidden">
+                    <i data-feather="x" class="w-8 h-8 text-white transform -rotate-90"></i>
+                </span>
+            </section>
             <div class="side-nav__devider my-6"></div>
             <ul>
                 @foreach ($side_menu as $menuKey => $menu)
@@ -84,4 +92,8 @@
         </div>
         <!-- END: Content -->
     </div>
+@endsection
+
+@section('script')
+    
 @endsection

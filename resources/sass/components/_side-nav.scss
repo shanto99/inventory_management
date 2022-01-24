@@ -4,6 +4,9 @@
         @apply pr-5 pb-16 overflow-x-hidden;
         @include media-breakpoint-down(xl) {
             width: 85px;
+            & #sidemenu-collapse {
+                display: none;
+            }
         }
         @include media-breakpoint-down(md) {
             @apply hidden;

@@ -29,9 +29,9 @@
                     <div class="intro-x mt-2 text-gray-500 xl:hidden text-center">A few more clicks to sign in to your account. Manage all your e-commerce accounts in one place</div>
                     <div class="intro-x mt-8">
                         <form id="login-form">
-                            <input id="user-id" type="text" class="intro-x login__input form-control py-3 px-4 border-gray-300 block" placeholder="User id">
-                            <div id="error-user-id" class="login__input-error w-5/6 text-theme-6 mt-2"></div>
-                            <input id="password" type="password" class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4" placeholder="Password">
+                            <input id="userid" type="text" required class="intro-x login__input form-control py-3 px-4 border-gray-300 block" placeholder="User id">
+                            <div id="error-userid" class="login__input-error w-5/6 text-theme-6 mt-2"></div>
+                            <input id="password" type="password" required class="intro-x login__input form-control py-3 px-4 border-gray-300 block mt-4" placeholder="Password">
                             <div id="error-password" class="login__input-error w-5/6 text-theme-6 mt-2"></div>
                         </form>
                     </div>
@@ -40,14 +40,14 @@
                             <input id="remember-me" type="checkbox" class="form-check-input border mr-2">
                             <label class="cursor-pointer select-none" for="remember-me">Remember me</label>
                         </div>
-                        <a href="">Forgot Password?</a>
+                        {{-- <a href="">Forgot Password?</a> --}}
                     </div>
                     <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                         <button id="btn-login" class="btn btn-primary py-3 px-4 w-full xl:w-32 xl:mr-3 align-top">Login</button>
-                        <button class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Sign up</button>
+                        {{-- <button class="btn btn-outline-secondary py-3 px-4 w-full xl:w-32 mt-3 xl:mt-0 align-top">Sign up</button> --}}
                     </div>
                     <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-center xl:text-left">
-                        By signin up, you agree to our <br> <a class="text-theme-1 dark:text-theme-10" href="">Terms and Conditions</a> & <a class="text-theme-1 dark:text-theme-10" href="">Privacy Policy</a>
+                        Developed by <br> <a class="text-theme-1 dark:text-theme-10" href="">MIS@ACI</a>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 cash('#login-form').find('.login__input-error').html('')
 
                 // Post form
-                let userId = cash('#user-id').val()
+                let userId = cash('#userid').val()
                 let password = cash('#password').val()
                 let rememberMe = cash('#remember-me').val()
                 
@@ -83,8 +83,9 @@
                     cash('#btn-login').html('Login')
                     if (err.response.data.message != 'Wrong email or password.') {
                         for (const [key, val] of Object.entries(err.response.data.errors)) {
-                            cash(`#${key}`).addClass('border-theme-6')
-                            cash(`#error-${key}`).html(val)
+                            let lowercaseKey = key.toLowerCase();
+                            cash(`#${lowercaseKey}`).addClass('border-theme-6')
+                            cash(`#error-${lowercaseKey}`).html(val)
                         }
                     } else {
                         cash(`#password`).addClass('border-theme-6')

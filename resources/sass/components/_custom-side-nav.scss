@@ -1,0 +1,22 @@
+@layer components {
+    .side-nav-collapse {
+        width: 85px;
+        & .company-name {
+            display: none;
+        }
+        & #sidemenu-collapse {
+            display: none;
+        }
+        .side-menu {
+            .side-menu__title {
+                @apply hidden;
+                .side-menu__sub-icon {
+                    @apply hidden;
+                }
+            }
+            &:not(.side-menu--active) .side-menu__icon:before {
+                @apply hidden;
+            }
+        }
+    }
+}
