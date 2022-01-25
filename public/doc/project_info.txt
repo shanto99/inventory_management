@@ -1,0 +1,7 @@
+192.168.41.108
+dbIMSBoss
+
+
+Inventory Link : 192.168.101.215:78
+User : admin      
+Pass 1234
