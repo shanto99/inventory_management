@@ -1,13 +1,13 @@
 @extends('../layout/' . $layout)
 
 @section('subhead')
-    <title>Company management</title>
+    <title>Warehouse management</title>
 @endsection
 
 @section('subcontent')
     <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
-            Add new company
+            Add new warehouse
         </h2>
     </div>
     <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
@@ -24,17 +24,17 @@
                     </thead>
                     <tbody id="menu-table-body">
                     @foreach ($companies as $row)
-                        <tr class="intro-x" data-id="{{ $row->CompanyCode }}">
-                            <td class="text-center">{{ $row->CompanyCode }}</td>
-                            <td class="text-center">{{ $row->CompanyName }}</td>
+                        <tr class="intro-x" data-id="{{ $row->WarehouseCode }}">
+                            <td class="text-center">{{ $row->WarehouseCode }}</td>
+                            <td class="text-center">{{ $row->WarehouseName }}</td>
                             <td class="text-center">{{ $row->Address }}</td>
                             <td class="table-report__action w-56">
                                 <div class="flex justify-center items-center">
                                     <a class="flex items-center mr-3"
-                                       data-id="{{ $row->CompanyCode }}"
-                                       href="javascript:;" onclick="editCompany(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit/Details </a>
+                                       data-id="{{ $row->WarehouseCode }}"
+                                       href="javascript:;" onclick="editWarehouse(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit/Details </a>
                                     <a class="flex items-center text-theme-6"
-                                       href="#" data-id="{{ $row->CompanyCode }}"
+                                       href="#" data-id="{{ $row->WarehouseCode }}"
                                        onclick="confirmDelete(this)"
                                        data-toggle="modal" data-target="#delete-confirmation-modal">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
@@ -48,20 +48,20 @@
         </div>
         <div class="col-span-12 lg:col-span-12">
             <div class="intro-y box p-5">
-                <form method="POST" id="company-form">
+                <form method="POST" id="warehouse-form">
                     @csrf
                     <input id="Id" type="hidden" name="Id">
                     <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
                         <div class="col-span-12 lg:col-span-6">
                             <div class="mt-3">
-                                <label class="form-label">CompanyCode</label>
-                                <input id="CompanyCode" type="text"
-                                       name="CompanyCode" class="form-control" placeholder="CompanyCode">
+                                <label class="form-label">WarehouseCode</label>
+                                <input id="WarehouseCode" type="text"
+                                       name="WarehouseCode" class="form-control" placeholder="WarehouseCode">
                             </div>
                             <div class="mt-3">
-                                <label class="form-label">CompanyName</label>
-                                <input id="CompanyName" type="text"
-                                       name="CompanyName" class="form-control" placeholder="CompanyName">
+                                <label class="form-label">WarehouseName</label>
+                                <input id="WarehouseName" type="text"
+                                       name="WarehouseName" class="form-control" placeholder="WarehouseName">
                             </div>
                             <div class="mt-3">
                                 <label class="form-label">Address</label>
@@ -131,10 +131,10 @@
                             </div>
                             <div class="mt-3">
                                 <label class="form-label"></label>
-                                <button id="btn-company-create" type="submit" class="btn btn-primary mt-5">
+                                <button id="btn-warehouse-create" type="submit" class="btn btn-primary mt-5">
                                     Add
                                 </button>
-                                <button id="btn-company-cancel" class="btn btn-warning mt-5 hidden">
+                                <button id="btn-warehouse-cancel" class="btn btn-warning mt-5 hidden">
                                     Cancel
                                 </button>
                             </div>
@@ -150,5 +150,5 @@
 @endsection
 
 @section('script')
-    <script src="{{ asset('dist/js/company.js') }}"></script>
+    <script src="{{ asset('dist/js/warehouse.js') }}"></script>
 @endsection

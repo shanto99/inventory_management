@@ -1,5 +1,13 @@
 const companyForm = document.getElementById("company-form");
 const createBtn = document.getElementById("btn-company-create");
+const cancelEditBtn = document.getElementById("btn-company-cancel");
+
+cancelEditBtn.onclick = function(e) {
+    e.currentTarget.classList.add("hidden");
+    createBtn.innerText  ="Add";
+    companyForm.reset();
+
+}
 
 function generateCompanyRow(company) {
     let tableRow = document.createElement('tr');
@@ -77,6 +85,8 @@ companyForm.addEventListener("submit", function(e) {
         }
 
         companyForm.reset();
+        createBtn.innerText = "Add";
+        cancelEditBtn.classList.add("hidden");
 
         feather.replace();
     });
@@ -85,6 +95,8 @@ companyForm.addEventListener("submit", function(e) {
 function editCompany(link)
 {
     const id = link.dataset.id;
+    cancelEditBtn.classList.remove("hidden");
+    createBtn.innerText = "Edit";
 
     axios.get(`company/${id}`).then(function(res) {
         const result = res.data;
@@ -105,6 +117,8 @@ function editCompany(link)
         cash("#IDate").val(company.IDate);
         cash("#EDate").val(company.EDate);
     });
+
+
 
 }
 

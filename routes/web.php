@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController;
@@ -69,10 +70,17 @@ Route::middleware('prevent-back')->group(function () {
         Route::get('users/delete/{id}', [UserController::class, 'deleteUser'])->middleware('permission:delete users')->name('delete-user');
 
         Route::get('parent-sub', [PageController::class, 'parentSub'])->name('parent-sub');
+
         Route::get('/company-setup', [CompanySetupController::class, 'companySetup'])->name('company-setup');
         Route::post('create-company', [CompanySetupController::class, 'createCompany'])->name('create-company');
         Route::get('company/delete/{id}', [CompanySetupController::class, 'deleteCompany'])->name('delete-company');
         Route::get('company/{id}', [CompanySetupController::class, 'companyDetails'])->name('company-details');
+
+        Route::get('/warehouse-setup', [WarehouseController::class, 'warehouseSetup'])->name('warehouse-setup');
+        Route::post('create-warehouse', [WarehouseController::class, 'createWarehouse'])->name('create-warehouse');
+        Route::get('warehouse/delete/{id}', [WarehouseController::class, 'deleteWarehouse'])->name('delete-warehouse');
+        Route::get('warehouse/{id}', [WarehouseController::class, 'warehouseDetails'])->name('warehouse-details');
+
     });
 });
 
