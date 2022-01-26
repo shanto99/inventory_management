@@ -1,11 +1,11 @@
-<div class="intro-y flex items-center mt-8">
+    <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">
             All users
         </h2>
     </div>
     <a href="users/add" class="btn btn-primary mt-5">Add user</a>
     <div class="pos intro-y grid grid-cols-12 gap-5 mt-5">
-        <div class="col-span-12 lg:col-span-6">
+        <div class="col-span-12 md:col-span-12 lg:col-span-8">
             <div class="intro-y box col-span-12 overflow-auto lg:overflow-visible">
                 <table class="table table-report mt-2">
                     <thead>
@@ -30,10 +30,10 @@
                                     <div class="flex justify-center items-center">
                                         <a class="flex items-center mr-3"
                                         href="{{ route('edit-user', ['id' => $user->UserID]) }}"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                        <a class="flex items-center text-theme-6" 
+                                        <a class="flex items-center text-theme-6"
                                         href="#" data-id="{{ $user->UserID }}"
                                         onclick="confirmDelete(this)"
-                                        data-toggle="modal" data-target="#delete-confirmation-modal"> 
+                                        data-toggle="modal" data-target="#delete-confirmation-modal">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>
                                 </td>

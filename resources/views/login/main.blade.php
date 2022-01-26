@@ -53,7 +53,7 @@
             </div>
             <!-- END: Login Form -->
         </div>
-    </div>    
+    </div>
 @endsection
 
 @section('script')
@@ -68,7 +68,7 @@
                 let userId = cash('#userid').val()
                 let password = cash('#password').val()
                 let rememberMe = cash('#remember-me').val()
-                
+
                 // Loading state
                 cash('#btn-login').html('<i data-loading-icon="oval" data-color="white" class="w-5 h-5 mx-auto"></i>').svgLoader()
                 await helper.delay(1500)
@@ -78,7 +78,7 @@
                     Password: password,
                     remember_me: rememberMe
                 }).then(res => {
-                    location.href = '/ims'
+                    location.href = '/sr/inventory_management'
                 }).catch(err => {
                     cash('#btn-login').html('Login')
                     if (err.response.data.message != 'Wrong email or password.') {
@@ -99,7 +99,7 @@
                     login()
                 }
             })
-            
+
             cash('#btn-login').on('click', function() {
                 login()
             })

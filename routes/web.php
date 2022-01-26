@@ -9,6 +9,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CompanySetupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,8 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
+//Route::get('dark-mode-switcher', [DarkModeController::class, 'switch'])->name('dark-mode-switcher');
+
 
 Route::middleware('prevent-back')->group(function () {
     Route::middleware('loggedin')->group(function () {
@@ -67,5 +69,10 @@ Route::middleware('prevent-back')->group(function () {
         Route::get('users/delete/{id}', [UserController::class, 'deleteUser'])->middleware('permission:delete users')->name('delete-user');
 
         Route::get('parent-sub', [PageController::class, 'parentSub'])->name('parent-sub');
+        Route::get('/company-setup', [CompanySetupController::class, 'companySetup'])->name('company-setup');
+        Route::post('create-company', [CompanySetupController::class, 'createCompany'])->name('create-company');
+        Route::get('company/delete/{id}', [CompanySetupController::class, 'deleteCompany'])->name('delete-company');
+        Route::get('company/{id}', [CompanySetupController::class, 'companyDetails'])->name('company-details');
     });
 });
+

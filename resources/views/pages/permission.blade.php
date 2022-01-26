@@ -32,7 +32,7 @@
                 </form>
             </div>
         </div>
-        <div class="col-span-12 lg:col-span-6">
+        <div class="col-span-12 lg:col-span-8">
             <div class="intro-y box col-span-12 overflow-auto lg:overflow-visible">
                 <table class="table table-report mt-2">
                     <thead>
@@ -55,13 +55,13 @@
                                 </td>
                                 <td class="table-report__action w-56">
                                     <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3" 
+                                        <a class="flex items-center mr-3"
                                         data-id="{{ $permission->id }}"
                                         href="#" onclick="editPermission(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                        <a class="flex items-center text-theme-6" 
+                                        <a class="flex items-center text-theme-6"
                                         href="#" data-id="{{ $permission->id }}"
                                         onclick="confirmDelete(this)"
-                                        data-toggle="modal" data-target="#delete-confirmation-modal"> 
+                                        data-toggle="modal" data-target="#delete-confirmation-modal">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>
                                 </td>

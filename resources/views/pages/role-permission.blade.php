@@ -5,9 +5,9 @@
 @endsection
 
 @section('subcontent')
-     
- <div class="overflow-x-auto">
-     <table class="table">
+
+ <div class="overflow-x-auto box">
+     <table class="table border-collapse border border-slate-400 ">
          <thead>
              <tr>
                  <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">Permissions</th>
@@ -22,10 +22,10 @@
                     <td class="border-b dark:border-dark-5">{{ $permission['name'] }}</td>
                     @foreach($roles as $role)
                         <td class="border-b dark:border-dark-5">
-                            <input data-role-id="{{ $role['id'] }}" 
-                              data-permission-id="{{ $permission['id'] }}" 
+                            <input data-role-id="{{ $role['id'] }}"
+                              data-permission-id="{{ $permission['id'] }}"
                               @if(in_array($permission['id'], $role['permissionIdChecked'])) checked @endif
-                              onclick="assignPermissionToRole(this)" 
+                              onclick="assignPermissionToRole(this)"
                               class="form-check-input" type="checkbox">
                         </td>
                     @endforeach

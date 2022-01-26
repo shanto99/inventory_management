@@ -32,13 +32,13 @@ function generateMenuRow(menu) {
     actionCell.setAttribute('style' ,'table-report__action w-56');
 
     actionCell.innerHTML = `<div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3" 
+                                        <a class="flex items-center mr-3"
                                         data-id="${menu.MenuSubID}"
                                         href="#" onclick="editSubMenu(this)"> <i data-feather="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                        <a class="flex items-center text-theme-6" 
+                                        <a class="flex items-center text-theme-6"
                                         href="#" data-id="${menu.MenuSubID}"
                                         onclick="confirmDelete(this)"
-                                        data-toggle="modal" data-target="#delete-confirmation-modal"> 
+                                        data-toggle="modal" data-target="#delete-confirmation-modal">
                                         <i data-feather="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
                                     </div>`;
 
@@ -92,7 +92,7 @@ menuForm.addEventListener("submit", function(e) {
 
         menuForm.reset();
         cash("#sub-menu-id").val('');
-        
+
         feather.replace();
     });
 });
@@ -115,7 +115,7 @@ function editSubMenu(link)
         createBtn.innerText = "Update";
         cancelEditBtn.classList.remove('invisible');
     });
-    
+
 }
 
 function confirmDelete(link)
