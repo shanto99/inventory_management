@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
+use App\Services\PermissionService;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles;
@@ -51,7 +53,7 @@ class User extends Authenticatable
         $menus = [];
 
         foreach ($allPermissions as $permission) {
-            $permissionMenus = $permission->menus ?: [];
+            $permissionMenus = PermissionService::getMenus($permission) ?: [];
             foreach ($permissionMenus as $menu) {
                 $parameters = $menu->parameters ?: [];
                 $params = [];
@@ -66,7 +68,7 @@ class User extends Authenticatable
                 ];
             }
 
-            $permissionSubMenus = $permission->subMenus ?: [];
+            $permissionSubMenus = PermissionService::getSubMenus($permission) ?: [];
 
             foreach ($permissionSubMenus as $subMenu) {
                 $menu = $subMenu->menu;
